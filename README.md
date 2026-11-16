@@ -215,7 +215,13 @@ to a chat assistant does not supply credentials to a Streamlit deployment.
    `files.metadata.read`, then save/submit the changes **before authorizing**.
 3. On **Settings**, copy the **App key** and **App secret**. Do not commit either
    credential or your refresh token to the repository.
-4. In a local terminal, with dependencies installed, run:
+4. On Windows, run the dependency-free PowerShell helper:
+
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\dropbox_oauth.ps1
+   ```
+
+   Alternatively, if Python and the project dependencies are installed, run:
 
    ```bash
    python scripts/dropbox_oauth.py
