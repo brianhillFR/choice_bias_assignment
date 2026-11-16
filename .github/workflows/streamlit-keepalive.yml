@@ -1,0 +1,39 @@
+name: Keep Streamlit awake
+
+on:
+  schedule:
+    # Every six hours, away from the busy start of the hour. Times are UTC.
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: streamlit-keepalive
+  cancel-in-progress: false
+
+jobs:
+  wake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the assignment
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: scripts/requirements-keepalive.txt
+      - name: Install the browser checker
+        run: |
+          python -m pip install -r scripts/requirements-keepalive.txt
+          python -m playwright install --with-deps chromium
+      - name: Wake the app and verify the entry screen
+        env:
+          STREAMLIT_APP_URL: ${{ vars.STREAMLIT_APP_URL || 'https://choice-biases-assignment.streamlit.app/' }}
+          STREAMLIT_BROWSER_STATE: ${{ secrets.STREAMLIT_BROWSER_STATE }}
+        run: python scripts/wake_streamlit.py

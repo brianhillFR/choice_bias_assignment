@@ -1,0 +1,219 @@
+# Choice-biases assignment wording, case texts, supplied responses, and interface labels.
+# Source wording comes from Choice_assignment.qsf and the master answer document.
+
+"intro" = '''
+The assignment will be to individually answer questions. The questions will concern two among a set of cases, which are contained in the file posted on Blackboard.'''
+
+"ans1_prompt" = '''
+In this assignment, you will be asked to consider two cases from the file provided.
+
+First, consider case ${e://Field/answerqn}. The behavior in this case may be considered “irrational” by the standard economic theory of choice. Explain why, which of the biases presented in the Choice Biases Section of the course the behavior connects to – or can be explained by– and how. Be as specific as possible about the related bias and its connection to the example.'''
+
+"ans2_prompt" = "Explain your answer, specifying, if relevant, what needs to be added, corrected or changed to obtain a perfect response."
+
+"case_question" = '''
+The behavior in this case may be considered “irrational” by the standard economic theory of choice. Explain why, which of the biases presented in the Choice Biases Section of the course the behavior connects to – or can be explained by – and how. Be as specific as possible about the related bias and its connection to the example.'''
+
+["cases"]
+"1" = '''
+Subjects are faced with one of the following two questions:
+
+a. A company is making a small profit. It is located in a community experiencing a recession with substantial unemployment but no inflation. The company decides to decrease wages and salaries 7 percent this year. Is this acceptable or unfair?
+
+b. A company is making a small profit. It is located in a community experiencing a recession with substantial unemployment and inflation of 12 percent. The company decides to increase salaries only 5 percent this year. Is this acceptable or unfair?
+
+The typical finding is that most subjects find the policy in a. unfair, and most find that the policy in b. is acceptable.'''
+
+"2" = '''
+Subjects were shown a can of fictitious insecticide. The current price was said to be $10. They were informed that all insecticide can cause injuries if misused, including inhalation and skin poisoning. The current risk level was said to be 15 injuries of each type per 10,000 bottles sold.
+
+They were asked how much more than $10 they would be willing to pay to eliminate the risks.
+
+They were also asked to state the price reduction they would require to accept an increase of 1/10,000 in each of the two risks.
+
+In households without children, the typical finding is that people would be prepared to pay just under $4 to eliminate the risks, but would refuse to buy the slightly-more risky version of the product at any positive price (i.e. they wouldn’t even buy it at a price of $1).'''
+
+"3" = '''
+There is a tendency for people to offer gifts that the receivers of the gifts would not buy for themselves even though they can afford it, and for these receivers to (often) be happy to receive such gifts.'''
+
+"4" = '''
+Typical findings indicate that people are more likely to engage in a purchase in a particular time-frame (say, in a week) using a monetary sum if it is held in small denominations (e.g. twenty €1 coins) than if it is held in large denominations (e.g. one $20 note).'''
+
+"5" = '''
+People are more likely buy e.g. subscriptions if the price is expressed as “pennies per day” (e.g. 50 cents a day) rather than as a lump sum (e.g. €182.50 a year).'''
+
+"6" = '''
+In a study, university students were each given $50, and asked, one week later, how much of it they saved and spent. Students in group A were told that the money was a rebate on their tuition fees; students in group B were told that it was a bonus. The study found that the students in group B spent significantly more than those in group A.'''
+
+"7" = '''
+Taxi drivers tend to work shorter hours on busy days – that is, on days where it is easier to find customers and so where they spend less time waiting for rides.'''
+
+"8" = '''
+In the survey, you were asked the following question:
+
+You have tickets for a show. On the night of the show, there is a violent storm and a strike that makes it difficult to get to the venue.
+
+a. You bought the tickets.
+
+b. You got given the tickets.
+
+Do you go?
+
+Half of you answered the question with text a. (only), and the other half with b. (only). Typical findings are that more people go to the show under a. than under b.'''
+
+"9" = '''
+Consider the following two dinner sets:
+
+Set A has 40 pieces: 8 dinner plates, 8 bowls and 8 dessert plates, all in good condition; 8 cups, 2 of them broken; and 8 saucers, 2 of them broken.
+
+Set B has 24 pieces: 8 dinner plates, 8 bowls and 8 dessert plates, all in good condition.
+
+One group of subjects (group A) only saw set A and were asked how much they would be willing to pay for it. Another group (call it B) only saw set B and were asked how much they would be willing to pay for it. The final group (group C) saw both sets and were asked how much they would be willing to pay for each.
+
+Whereas the subjects in group C were on average willing to pay more for A than B, the subjects in group B were willing to pay more for set B than the subjects in group A were willing to pay for set A.'''
+
+"10" = '''
+Consider the following two legal cases:
+
+Case 1: A child suffered moderate burns when his pyjamas caught fire as he was playing with matches. The firm that produced the pyjamas had not made them adequately fire resistant.
+
+Case 2: The unscrupulous dealings of a bank caused another bank a loss of $10 million.
+
+Subjects which are presented with Case 1 only and are asked to assess punitive damages award lower damages on average than subjects presented with Case 2 only. However, subjects presented with both cases together, and asked to assess damages for each, award higher damages in Case 1.'''
+
+["rating_choices"]
+["rating_choices"."4"]
+"Display" = "Totally right: it would get full marks"
+["rating_choices"."5"]
+"Display" = "There is something along the right lines in the response, but requires some addition or modification"
+["rating_choices"."6"]
+"Display" = "Wrong"
+
+["ui"]
+"title" = "Choice Biases Assignment"
+"password_label" = "Access code"
+"enter_button" = "Enter"
+"instructions_title" = "Assignment instructions"
+"task_instructions" = '''
+You will be randomly assigned two different cases, and asked a question about each. The cases are available on Blackboard, and are repeated below.'''
+"word_limit_instructions" = "Your final answers for each case should not be more than around 250–300 words at most."
+"grading_instructions" = '''
+'''
+"interview_instructions" = '''
+After each answer, you will receive feedback on it. You must respond in no more than 150 words, specifying whether you agree with it or not. Then, you have the option of confirming or revising your previous answer. Once submitted, your final answer cannot be changed.'''
+"begin_button" = "Begin assignment"
+"resume_caption" = '''
+Your submitted answers are saved and cannot be changed. To resume later, return and enter the same email address, your name, and the access code.'''
+"case_title" = "Case {number}"
+"question_case_title" = "Question {question_number}: Case {number}"
+"feedback_avatar" = "🎓"
+"answer_label" = "Your answer"
+"word_limit_caption" = "Around 250–300 words at most, as in the assignment guidance."
+"continue_button" = "Save and continue"
+"saved_answer_title" = "Case and your saved answer"
+"assessment_prefix" = "Your assessment: "
+"reasons_placeholder" = "Explain your reasons"
+"assessment_label" = "Your assessment"
+"completion_message" = "Thank you. Your assignment has been submitted."
+"submission_prefix" = "Submission reference: "
+"download_csv" = "Download your responses (CSV)"
+"password_setup_message" = "The instructor needs to configure ASSIGNMENT_PASSWORD in the app settings before the assignment can open."
+"unsaved_reason_message" = "This reply has not been confirmed as saved. You can retry it below or enter a revised reply."
+"retry_save_button" = "Retry saving this reply"
+"identity_title" = "Your details"
+"name_label" = "Full name"
+"email_label" = "Email address"
+"identity_continue" = "Continue to assignment instructions"
+"name_required" = "Please enter your name."
+"email_invalid" = "Please enter a valid email address."
+"instructions_again" = "Read the assignment instructions again before beginning."
+"instructions_review" = "Read the assignment instructions again"
+"cases_title" = "Cases"
+"csv_pending_message" = "Your completed answers are saved as JSON. The combined results file has not yet been confirmed."
+"retry_finalize_button" = "Retry finalising submission"
+"entry_continue" = "Continue"
+"incorrect_code" = "Incorrect access code."
+"bot_retry_message" = "The AI reply could not be completed. Your submitted answers are saved. Please retry."
+"bot_retry_button" = "Retry AI reply"
+"bot_busy_message" = "The AI is preparing this reply in another tab. Please wait, then check again."
+"bot_check_button" = "Check saved progress"
+"bot_interrupted_message" = "The previous request was interrupted. Retry to continue."
+"bot_thinking_message" = "Preparing some feedback…"
+"bot_reply_invitation" = "Please comment on this feedback in no more than {max_words} words."
+"bot_reply_placeholder" = "Respond to the feedback"
+"bot_confirmation_label" = "Thanks for your comment. After this exchange, would you like to confirm your previous answer or modify it?"
+"bot_confirm_option" = "Confirm my previous answer"
+"bot_correct_option" = "Modify my answer"
+"bot_final_submit" = "Save final answer and continue"
+"previous_answer_label" = "Your previous answer"
+"conversation_review" = "Review your previous answer and conversation"
+"final_answer_title" = "Question {question_number}: Case {number} — Final answer"
+"final_answer_instructions" = '''
+Thanks for that comment. After this exchange, would you like to confirm your previous answer or modify it? Your previous answer is copied below. To revise it, choose “Modify my answer” and edit the text before submitting.'''
+"final_answer_label" = "Your final answer"
+"final_answer_locked_notice" = "Submitting saves your final answer permanently. You will not be able to change it afterwards."
+"email_entry_title" = "Your email address"
+"email_entry_instructions" = "Enter and confirm your email address to begin or return to your saved assignment."
+"email_confirm_button" = "Confirm email"
+"confirmed_email" = "Email: {email}"
+"change_email_button" = "Use a different email address"
+
+["review_sections"]
+"1" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"This behavior is mainly an example of status quo bias. Employees use their current nominal salary as the default and resist an explicit wage cut because it changes an established arrangement. By contrast, a salary increase follows the familiar expectation that pay should rise over time, so it feels consistent with the status quo even if the increase is modest. The different judgments therefore arise because people prefer policies that preserve the existing direction of salary changes and dislike policies that visibly alter the current contract."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+"2" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"The finding is explained by ordinary risk aversion. Consumers prefer the safer insecticide, so they are willing to pay a premium to remove its risks. The slightly more dangerous version exposes them to an uncertain injury, and a risk-averse person may reject that gamble even when the product is discounted. The pattern therefore shows that people consistently choose safety over price when the possible consequence is a serious health problem."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+"3" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"This behavior reflects the endowment effect and reciprocity. Once recipients are given the item, ownership makes it feel more valuable than it did when they merely considered buying it. They may also value the gift because it represents another person's effort and creates a desire to reciprocate. These two forces explain why someone can be pleased with an object after receiving it even though they did not value it enough to purchase it before."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+"4" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"The result is driven by loss aversion and the pain of paying. Spending one large note creates a single, highly visible loss, so people hesitate to hand it over. Spending coins creates many tiny losses, each of which feels too small to matter. Because the psychological pain attached to the large note is stronger than the pain attached to any individual coin, consumers are more willing to make a purchase when the same total amount is divided into smaller denominations."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+"5" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"This is an anchoring effect. The first number consumers see is the very small daily price, such as 50 cents, and that low value becomes the anchor for judging whether the subscription is expensive. People do not adjust enough when they think about repeated payments over the year, so the offer continues to feel cheap. Presenting the annual amount supplies a much larger anchor and therefore reduces willingness to subscribe."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+"6" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"The behavior is a simple framing effect caused by the emotional meaning of the labels. Calling the payment a bonus makes students feel rewarded and optimistic, which encourages consumption. Calling the identical payment a rebate reminds them of the cost of tuition and puts them in a more cautious mood, so they save it. The wording changes their general attitude toward the money even though the amount and their wealth are the same."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+"7" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"This pattern is caused by present bias. On a busy day, drivers earn money quickly and the immediate attraction of going home becomes stronger than the delayed benefit of earning still more. On a quiet day, low current earnings make the need for income more salient, so they keep working despite the waiting time. The drivers therefore overweight immediate leisure once the day already feels successful."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+"8" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"The difference is an endowment effect. Buying the tickets creates stronger psychological ownership because the person deliberately selected and paid for the experience. That ownership raises the perceived value of the show, so the buyer is more willing to overcome the storm and strike. A person who received the tickets has weaker attachment to them and can give them up more easily."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+"9" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"The result is caused by the endowment effect. When people focus on a single dinner set, they quickly imagine it as their own and value its most noticeable features. The complete-looking set B therefore acquires a stronger sense of ownership and receives a higher price. When both sets are displayed, subjects spread their attention across them and the ownership feeling weakens, allowing the larger set A to receive the higher valuation."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+"10" = '''The following response to the question has been provided by ChatGPT. You will be asked some questions about this response.
+
+<div style="margin-left: 40px;">"The behavior is explained by the affect heuristic and availability. Harm to a child is vivid and emotionally charged, so people can easily imagine the injury and respond with anger toward the pyjama company. The bank's financial loss is abstract and produces less emotion. Subjects therefore award more punitive damages to the child case because the vivid event is easier to picture and feels more serious."</div>
+
+How well do you think that this response answers the question concerning the case?'''
+
+["screens"]
+"ans1_opening" = "In this assignment, you will be asked to consider two cases from the file provided."
+"ans1_case_lead" = "First, consider case {number}."
+"case_reminder" = "As a reminder, this is the case:"
+"ans1_question_lead" = "Please answer the following question concerning this case:"
+"ans2_case_lead" = "Now consider case {number}."
+"ans2_question_lead" = "As for the previous case, the question is:"

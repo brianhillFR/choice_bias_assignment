@@ -1,0 +1,155 @@
+Choice Biases Assignment — Streamlit version
+
+Run
+---
+Use Python 3.9 or newer. From this directory:
+
+    python -m pip install -r requirements.txt
+    python -m streamlit run judgement_biases_interview.py
+
+Keep judgement_biases_interview.py and assignment_content.toml together.
+The TOML file contains all case texts, question prompts, supplied ChatGPT
+responses, rating labels, instructions, and interface labels. Text between
+triple single quotes accepts ordinary line breaks and paragraphs.
+Edit that UTF-8 TOML file to change the wording, then restart Streamlit.
+The Python file contains the routing, question IDs, original export tags,
+validation, storage, and export logic. It loads the TOML relative to its own
+location, so launching from a different working directory also works.
+Neither source attachment nor the example interview repository is needed at
+runtime. The AI interview requires KEY_OPENAI in Streamlit Secrets; see README.md.
+
+Set ASSIGNMENT_PASSWORD in Streamlit Secrets or the server environment.
+There is no built-in password. An explicit empty string disables the password
+gate for local testing. See README.md for deployment and Dropbox setup.
+
+For this machine, the existing interview environment can run it directly:
+
+    /Users/brianhill/Documents/Codex/2026-09-23/i/work/interviews/.venv/bin/python -m streamlit run judgement_biases_interview.py
+
+Flow and fidelity
+-----------------
+1. First page: email address and Confirm email. For new emails, a second
+   page asks for name and access code before showing instructions. Returning
+   respondents confirm only their email to resume their saved step.
+2. Ans1: first case uniformly drawn from 1 through 6, its case text, and the
+   original required free-text prompt.
+3. AI objection to Ans1; student comment (maximum 150 words); a new final-answer
+   page with collapsed conversation history and an editor prefilled with the
+   original answer. Keep or revise that answer; submission permanently locks it.
+4. Second case: uniformly select one of the five questions in the source
+   branch's RandomSubSet. This excludes the first case. Show the case text,
+   verbatim supplied ChatGPT response, original three-option assessment,
+   and original required explanation textbox (Ans2).
+5. The same AI objection/comment/student-final-answer sequence for Ans2.
+6. Completion and an optional CSV download. No JSON download is offered;
+   individual JSON records remain in private storage.
+
+The ChatGPT responses are assignment stimuli. They retain their original
+wording, errors, and repetitions. The app neither corrects nor grades them.
+The opponent instructions, wrong positions, model choice, and optional
+correct-answer keys are editable in bot_config.toml. There is exactly one
+AI turn per case; final answers are written and submitted by the student.
+Original answers remain locked; final decisions are saved in separate fields.
+
+No case, response, or assessment question is asked again after validation.
+Validated answers cannot be edited. The main and final-answer word limits
+remain guidance, as in the source. The student comment has a hard 150-word limit. Both the rating and explanation for the
+second case are validated together, as in the source block.
+
+The original export's opening FixedOrder did not display its name/email items.
+At the instructor's request, this version confirms the email on the first page.
+New emails then require a name and access code on a second page before instructions;
+returning respondents resume with email alone. Any valid email domain is accepted.
+The Corrqns and who? blocks remain outside the active flow. Trash questions,
+undisplayed cases, and unused blocks are excluded.
+
+Intentional additions: email/name/access-code entry; reordered case screens;
+case text beside each assigned question; the two AI
+exchanges; a case booklet on the opening screen; resume links; and response downloads.
+The original HTML is converted to plain text for Streamlit while preserving its
+words and paragraph structure. The visual skin is Streamlit's, not Qualtrics'.
+The assignment document specifies no return to validated pages. This version
+follows that rule, despite the QSF's global BackButton option being enabled.
+
+Storage and resuming
+--------------------
+The first successful entry for an email creates one stored response and case
+assignment. Re-entering that email resumes the same response.
+The private URL contains a resume handle. Respondents can also return to the
+ordinary URL and confirm the same email address to resume; no name or access code is needed again. Validated steps are stored in the selected backend and survive browser
+refreshes. SQLite requires a persistent local disk; Dropbox also survives cloud
+server replacement and restarts. Unsubmitted drafts are not saved across browser sessions.
+A private hashed email index points to the random response key. A separate
+subjects.csv identity log maps each unique eight-digit SubjectId to the subject's
+name and email. Completed responses are locked.
+Concurrent browser tabs cannot overwrite each other's validated answers.
+
+Default database: responses/assignment.sqlite3, beside the Python file.
+Override with JUDGEMENT_DB, an absolute path to a writable SQLite database.
+Use persistent server storage when hosting. This storage design is intended for
+one app server, not multiple independently replicated servers.
+
+This preserves one response per normalized email. The shared access code is
+required only for first registration. Email confirmation checks the format,
+not mailbox ownership. A different email starts a different response.
+Qualtrics cookies, CAPTCHA, hosted service protections, and partial-response
+expiry are not reproduced. Verified student identity would require participant credentials or an external
+roster, neither supplied by this flow.
+No response is submitted to Qualtrics. With STORAGE_BACKEND="dropbox", responses
+are saved in your configured Dropbox app folder; otherwise they remain local.
+
+Export
+------
+Create the exports directory first. From the server or a local machine with
+the same storage credentials, export all saved responses (including partial responses):
+
+    python judgement_biases_interview.py --export-csv exports/responses.csv
+
+Dropbox saves individual JSON files at every validated step. Only at completion
+does it merge a row into answers.csv, preserving existing rows and avoiding
+duplicate SubjectId rows. See README.md for the automatic merge and retry logic.
+
+The answer CSV has one row per respondent. SubjectId is its only identity column;
+name, email and the internal ResponseId appear only in private storage, with name,
+email and SubjectId together in subjects.csv. The answer CSV has completion details
+and parallel main_ and review_ columns: case_number, question, first_reply,
+feedback, reply_to_feedback, confirm_or_correct, and final_answer.
+The review also has review_assessment (a readable label) and
+review_chatgpt_response (the supplied response the subject was correcting).
+Elapsed seconds and start/submission timestamps are retained for each answer,
+feedback reply and final answer. Qualtrics question codes, duplicate aliases,
+and transcript/interview JSON are not exported. Full records remain in JSON.
+Older CSV rows are converted during the next completion merge, preserving
+previous respondents and custom columns.
+
+This is a UTF-8 CSV with one header row, not Qualtrics' multi-header export
+container. The same response logic and original field values are retained.
+
+Verification
+------------
+    python -m unittest -v
+
+Tests cover all 90 distinct ordered case pairs and all three rating values,
+required responses, stage ordering, completed-response locking, SQLite resume,
+stale-tab rejection, CSV round-tripping, password gating, invalid resume URLs,
+and an end-to-end Streamlit interview with a fresh-browser resume.
+
+When the supplied QSF is available at its original path, tests also compare all
+active prompts, branch pools, question IDs, export tags, and choice labels
+against that source. Else set QSF_SOURCE to its path to run that comparison.
+Tests verify all ten numbered case texts against distinctive content in the DOCX if it is available;
+DOCX_SOURCE may override its path.
+
+Streamlit UI tests use the official testing interface:
+https://docs.streamlit.io/develop/api-reference/app-testing/st.testing.v1.apptest
+
+AI interview configuration
+--------------------------
+Edit bot_config.toml for the bot's instructions and wrong positions. Text
+between triple single quotes accepts ordinary line breaks and paragraphs. Its ten
+correct_answer and correct_reasoning fields are blank for the instructor to
+fill. Add KEY_OPENAI to Streamlit Secrets. The private snapshots in raw stored
+JSON are excluded from student downloads and analysis CSV exports. The normal
+flow makes two model calls in total; retries are explicit and saved turns
+are reused. Full configuration, output fields and recovery details are in
+README.md under Configure the AI interview.
