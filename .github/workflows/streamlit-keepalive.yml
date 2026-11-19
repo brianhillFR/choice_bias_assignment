@@ -34,6 +34,6 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Wake the app and verify the entry screen
         env:
-          STREAMLIT_APP_URL: ${{ vars.STREAMLIT_APP_URL || 'https://choice-biases-assignment.streamlit.app/' }}
+          STREAMLIT_APP_URL: https://be-choice-biases-assignment.streamlit.app/
           STREAMLIT_BROWSER_STATE: ${{ secrets.STREAMLIT_BROWSER_STATE }}
         run: python scripts/wake_streamlit.py
