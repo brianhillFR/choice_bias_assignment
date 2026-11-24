@@ -146,10 +146,12 @@ https://docs.streamlit.io/develop/api-reference/app-testing/st.testing.v1.apptes
 AI interview configuration
 --------------------------
 Edit bot_config.toml for the bot's instructions and wrong positions. Text
-between triple single quotes accepts ordinary line breaks and paragraphs. Its ten
-correct_answer and correct_reasoning fields are blank for the instructor to
-fill. Add KEY_OPENAI to Streamlit Secrets. The private snapshots in raw stored
-JSON are excluded from student downloads and analysis CSV exports. The normal
+between triple single quotes accepts ordinary line breaks and paragraphs. Only
+the selected wrong_position is copied from a case into the model request;
+correct_answer, correct_reasoning, and objection_guidance are retained only as
+instructor metadata and are not sent to OpenAI. Add KEY_OPENAI to Streamlit
+Secrets. The private snapshots in raw stored JSON are excluded from student
+downloads and analysis CSV exports. The normal
 flow makes two model calls in total; retries are explicit and saved turns
 are reused. Full configuration, output fields and recovery details are in
 README.md under Configure the AI interview.

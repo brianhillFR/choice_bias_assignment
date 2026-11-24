@@ -86,7 +86,8 @@ class BotTests(unittest.TestCase):
         client = SimpleNamespace(responses=api)
         record = state['bot_interviews']['probe1']
         first = ai.generate(record, client=client)
-        self.assertIn(record['_config']['case_guidance']['wrong_position'], api.calls[0]['instructions'])
+        self.assertIn(record['_config']['wrong_position'], api.calls[0]['instructions'])
+        self.assertNotIn('case_guidance', record['_config'])
         self.assertIn(state['answers']['Ans1'], api.calls[0]['input'][0]['content'])
         self.assertIn('150 words', api.calls[0]['instructions'])
         self.assertNotIn(state['answers']['email'], json.dumps(api.calls[0]))
@@ -172,16 +173,51 @@ class BotTests(unittest.TestCase):
             self.assertEqual(final['bot_interviews']['probe1']['calls'], record['calls'])
             self.assertEqual(legacy, saved)
 
-    def test_private_answer_key_and_prompts_are_not_in_student_download_or_csv(self):
+    def test_answer_key_and_hidden_error_never_reach_snapshot_or_model(self):
         config = ai.load_config()
         for case in config['cases'].values():
             case['correct_answer'] = 'PRIVATE_KEY_SENTINEL'
+            case['correct_reasoning'] = 'PRIVATE_REASONING_SENTINEL'
+            case['objection_guidance'] = 'PRIVATE_HIDDEN_ERROR_SENTINEL'
+            case['wrong_position'] = 'WRONG_POSITION_SENTINEL'
         state = ai.claim_generation(self.original(), 'probe1', app.bot_context(self.original(), 'probe1'), config=config)
+        record = state['bot_interviews']['probe1']
+        api = FakeResponses([('A deliberately mistaken objection.', 'completed')])
+        ai.generate(record, client=SimpleNamespace(responses=api))
+        request = json.dumps(api.calls[0])
+        private = ('PRIVATE_KEY_SENTINEL', 'PRIVATE_REASONING_SENTINEL',
+                   'PRIVATE_HIDDEN_ERROR_SENTINEL')
+        for sentinel in private:
+            self.assertNotIn(sentinel, json.dumps(state))
+            self.assertNotIn(sentinel, request)
+        self.assertIn('WRONG_POSITION_SENTINEL', request)
         state = self.apply(state)
-        self.assertIn('PRIVATE_KEY_SENTINEL', json.dumps(state))
-        self.assertNotIn('PRIVATE_KEY_SENTINEL', json.dumps(ai.student_download(state)))
-        self.assertNotIn('PRIVATE_KEY_SENTINEL', app.csv_export([state]))
+        for sentinel in private:
+            self.assertNotIn(sentinel, json.dumps(ai.student_download(state)))
+            self.assertNotIn(sentinel, app.csv_export([state]))
         self.assertTrue(ai.public_interviews(state)['probe1']['messages'])
+
+    def test_legacy_full_case_snapshot_is_reduced_to_wrong_position(self):
+        state = self.claimed(self.original())
+        record = state['bot_interviews']['probe1']
+        record['_config'].pop('wrong_position')
+        record['_config']['case_guidance'] = {
+            'correct_answer': 'LEGACY_PRIVATE_KEY',
+            'correct_reasoning': 'LEGACY_PRIVATE_REASONING',
+            'objection_guidance': 'LEGACY_PRIVATE_HIDDEN_ERROR',
+            'wrong_position': 'LEGACY_WRONG_POSITION',
+        }
+        record['_config']['question_context_template'] = (
+            'Correct: {correct_answer}\nWrong: {wrong_position}\n'
+            'Hidden: {objection_guidance}'
+        )
+        api = FakeResponses([('A deliberately mistaken objection.', 'completed')])
+        ai.generate(record, client=SimpleNamespace(responses=api))
+        request = json.dumps(api.calls[0])
+        self.assertIn('LEGACY_WRONG_POSITION', request)
+        for sentinel in ('LEGACY_PRIVATE_KEY', 'LEGACY_PRIVATE_REASONING',
+                         'LEGACY_PRIVATE_HIDDEN_ERROR'):
+            self.assertNotIn(sentinel, request)
 
     def test_saved_bot_message_cannot_be_changed(self):
         state = self.apply(self.claimed(self.original()))

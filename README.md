@@ -72,24 +72,21 @@ request is claimed, so retries keep that case's original model and instructions.
 
 The private instructions are editable in `bot_config.toml`. Text between triple
 single quotes (`'''`) accepts ordinary line breaks and blank lines, so you can
-edit paragraphs directly without writing escaped newline sequences. Keep the
-`{placeholder_names}` in `question_context_template` unchanged.
+edit paragraphs directly without writing escaped newline sequences.
+`question_context_template` may use only `{question}` and `{wrong_position}`;
+the loader rejects other placeholders.
 
 The configurable instructions are:
 
 - `interview_outline`, `general_instructions`, and `question_context_template`
   come from the **Draft AI interview instructions** chat. They define the
-  authoritative opponent who casts doubt on the correct explanation, or
-  entrenches the student's existing wrong position, without explicitly
-  advocating the supplied wrong answer.
+  authoritative opponent who consistently supports the supplied wrong position.
 - `cases."1"` through `cases."10"` contain the ten full `wrong_position` texts
-  from **Generate Heuristic Answers**. Edit the appropriate case's text or
-  `objection_guidance` to change the direction of the objections.
-- `cases.<number>.correct_answer` and `correct_reasoning` are intentionally
-  empty for the instructor to fill. Without a supplied key, the bot follows the
-  wrong-position guidance and is explicitly told that there is no authoritative
-  instructor key; it does not claim a grade. Fill these fields to make the
-  intended correct explanation explicit.
+  from **Generate Heuristic Answers**. This is the only case-specific field
+  copied into the model request.
+- `correct_answer`, `correct_reasoning`, and `objection_guidance` remain
+  instructor metadata. They are never copied into the saved bot snapshot or
+  sent to OpenAI and therefore cannot steer the generated feedback.
 - `reply_request_instruction` tells the AI to end with a question inviting a
   student comment of no more than 150 words. Preserve its `{max_words}` placeholder.
   The app enforces that limit for the student comment.

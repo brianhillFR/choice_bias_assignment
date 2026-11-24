@@ -28,8 +28,9 @@ This file records every intentional difference from the canonical local referenc
   in `coordination/choice_bias_wrong_answers.json`.
 - `bot_config.toml` now contains ten case-specific private entries. Each has the
   instructor-master mechanism and reasoning, the supplied plausible-wrong position,
-  and guidance explaining the diagnostic flaw so that feedback can challenge the
-  student's answer consistently.
+  and guidance explaining the diagnostic flaw. Only `wrong_position` is sent to
+  the feedback model; the correct answer, correct reasoning, and diagnostic-flaw
+  guidance remain instructor metadata outside the model request.
 - Bot-config validation now requires cases 1–10 instead of cases 1–6.
 - The obsolete copied `bot_config_old.toml` was removed so the new folder contains no
   alternative judgement-bias answer set.
